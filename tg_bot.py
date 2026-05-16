@@ -44,8 +44,10 @@ def ask_claude(text, data):
     prompt = f"{system}\n\n---\n{history_str}Пользователь: {text}\nАссистент:"
 
     r = subprocess.run(
-        ["claude", "-p", prompt, "--output-format", "text"],
-        capture_output=True, text=True, timeout=120, cwd="/root"
+    ["claude", "-p", prompt,
+     "--output-format", "text",
+     "--dangerously-skip-permissions"],
+    capture_output=True, text=True, timeout=120, cwd="/root"
     )
     return (r.stdout or r.stderr).strip()
 
